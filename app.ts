@@ -1,30 +1,33 @@
 abstract class CircusEmployee{
-    private _id:number;
+    private _id:string;
     private _name:string;
 
-    set name(val:string){
-        if(val.length >= 3)
-            this._name = val
+    public set name(val:string){
+        this._name = (val.length>2) ? val: "unknown"
     }
-    get name():string{
+    public get name():string{
         return this._name
     }
-    set id(val : number){
-        this._id = val;
+    public set id(val : string){
+        this._id = (val.length==9)?val: "unknown"
     }
-    get id():number{
+    public get id():string{
         return this._id;
     }
-    constructor(id:number, name: string){
+    public constructor(id?:string, name?: string){
         this.id = id;
         this.name = name;
     }
     public abstract CalculateSalary():number;
     public abstract ContinueToNextShow():boolean;
+
+    public toString():string{
+        return `name: ${this.name}, id: ${this.id}`;
+    }
 }
 class Clown extends CircusEmployee{
     private _cntLol: number;
-    constructor(id:number, name:string, cntLol:number){
+    public constructor(id?:string, name?:string, cntLol?:number){
         super(id, name);
         this._cntLol = cntLol
     }
@@ -41,7 +44,7 @@ class Clown extends CircusEmployee{
 }
 class LionTamar extends CircusEmployee{
     private _cntLion: number;
-    constructor(id:number, name:string, cntLion:number){
+    public constructor(id?:string, name?:string, cntLion?:number){
         super(id, name);
         this._cntLion = cntLion;
         
@@ -59,7 +62,7 @@ class LionTamar extends CircusEmployee{
 class RopeWalker extends CircusEmployee{
     private _cntShoes:number;
     private _cntClap: number;
-    constructor(id:number, name:string, cntShoes:number, cntClap:number){
+    public constructor(id?:string, name?:string, cntShoes?:number, cntClap?:number){
         super(id, name);
         this._cntShoes = cntShoes;
         this._cntClap= cntClap;
@@ -77,7 +80,7 @@ class RopeWalker extends CircusEmployee{
 class FireSpitter extends CircusEmployee{
     private _fireMeter : number;
     private _cntFire : number
-    constructor(id:number, name:string, fireMeter:number, cntFire:number){
+    public constructor(id?:string, name?:string, fireMeter?:number, cntFire?:number){
         super(id, name);
         this._fireMeter = fireMeter;
         this._cntFire = cntFire;
@@ -118,10 +121,10 @@ class Circus{
     }
 }
 
-let clown:Clown = new Clown(123, 'dani', 2);
-let lionTamar: LionTamar = new LionTamar(1234, "tamar", 3);
-let ropeWalker: RopeWalker = new RopeWalker(12345, "paul", 2, 3);
-let fireSpitter: FireSpitter = new FireSpitter(123456, "speedy", 3, 2);
+let clown:Clown = new Clown("123", 'dani', 2);
+let lionTamar: LionTamar = new LionTamar("1234", "tamar", 3);
+let ropeWalker: RopeWalker = new RopeWalker("12345", "paul", 2, 3);
+let fireSpitter: FireSpitter = new FireSpitter("123456", "speedy", 3, 2);
 let obj:Circus = new Circus();
 obj.AddEmployee(clown);
 obj.AddEmployee(lionTamar);
