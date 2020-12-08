@@ -31,16 +31,8 @@ class Clown extends CircusEmployee{
         super(id, name);
         this._cntLol = cntLol
     }
-    public  ContinueToNextShow():boolean{
-        if(this._cntLol>=1){
-            return true;
-        }
-        else
-            return false;
-    }
-    public  CalculateSalary():number{
-        return this._cntLol*100;
-    }
+    public  ContinueToNextShow():boolean{return this._cntLol>=1;}
+    public  CalculateSalary():number{return this._cntLol*100;}
 }
 class LionTamar extends CircusEmployee{
     private _cntLion: number;
@@ -97,6 +89,10 @@ class FireSpitter extends CircusEmployee{
 }
 class Circus{
     private arr:CircusEmployee[] = new Array<CircusEmployee>();
+    private _counterOfEmployees:number;
+
+    
+
     public AddEmployee(obj:CircusEmployee): boolean{
             if(this.arr.length < 30){
                 this.arr.push(obj);
@@ -113,11 +109,22 @@ class Circus{
         });
         return total;
     }
-    public ClownSalaryPercent():void{
-        // not finish
+    public ClownSalaryPart():number{
+        let percent:number=0;
+        for (let employee of this.arr) {
+            if(employee instanceof Clown)
+                percent += employee.CalculateSalary();
+        }
+
+        let totalSalary:number = this.CalculateTotalSalary();
+        return percent/totalSalary;
     }
-    public NoOfEmployeeForNextShow():void{
-        // not finish
+    public NoOfEmployeeForNextShow():number{
+        let employeesCnt:number=0;
+        for (let employee of this.arr) {
+            employeesCnt+= employee.ContinueToNextShow()?1:0;
+        }
+        return ;
     }
 }
 

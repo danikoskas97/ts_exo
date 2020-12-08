@@ -4,17 +4,19 @@ class CircusEmployee {
         this.name = name;
     }
     set name(val) {
-        if (val.length >= 3)
-            this._name = val;
+        this._name = (val.length > 2) ? val : "unknown";
     }
     get name() {
         return this._name;
     }
     set id(val) {
-        this._id = val;
+        this._id = (val.length == 9) ? val : "unknown";
     }
     get id() {
         return this._id;
+    }
+    toString() {
+        return `name: ${this.name}, id: ${this.id}`;
     }
 }
 class Clown extends CircusEmployee {
@@ -22,16 +24,8 @@ class Clown extends CircusEmployee {
         super(id, name);
         this._cntLol = cntLol;
     }
-    ContinueToNextShow() {
-        if (this._cntLol >= 1) {
-            return true;
-        }
-        else
-            return false;
-    }
-    CalculateSalary() {
-        return this._cntLol * 100;
-    }
+    ContinueToNextShow() { return this._cntLol >= 1; }
+    CalculateSalary() { return this._cntLol * 100; }
 }
 class LionTamar extends CircusEmployee {
     constructor(id, name, cntLion) {
@@ -100,20 +94,27 @@ class Circus {
         });
         return total;
     }
-    ClownSalaryPercent() {
-        // not finish
+    ClownSalaryPart() {
+        let percent = 0;
+        for (let employee of this.arr) {
+            if (employee instanceof Clown)
+                percent += employee.CalculateSalary();
+        }
+        let totalSalary = this.CalculateTotalSalary();
+        return percent / totalSalary;
     }
     NoOfEmployeeForNextShow() {
-        // not finish
+        let employeesCnt = 0;
+        for (let employee of this.arr) {
+            employeesCnt += employee.ContinueToNextShow() ? 1 : 0;
+        }
+        return;
     }
 }
-let clown = new Clown(123, 'dani', 2);
-console.log(clown);
-clown.id = 23;
-console.log(clown);
-let lionTamar = new LionTamar(1234, "tamar", 3);
-let ropeWalker = new RopeWalker(12345, "paul", 2, 3);
-let fireSpitter = new FireSpitter(123456, "speedy", 3, 2);
+let clown = new Clown("123", 'dani', 2);
+let lionTamar = new LionTamar("1234", "tamar", 3);
+let ropeWalker = new RopeWalker("12345", "paul", 2, 3);
+let fireSpitter = new FireSpitter("123456", "speedy", 3, 2);
 let obj = new Circus();
 obj.AddEmployee(clown);
 obj.AddEmployee(lionTamar);
