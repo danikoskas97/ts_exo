@@ -139,7 +139,7 @@ obj.AddEmployee(ropeWalker);
 obj.AddEmployee(fireSpitter);
 console.log(obj.CalculateTotalSalary());
 // output: 1220
-//console.log(obj.ClownSalaryPercent());
+console.log(obj.ClownSalaryPart());
 // output: 
-//console.log(obj.NoOfEmployeeForNextShow());
+console.log(obj.NoOfEmployeeForNextShow());
 //output: 
